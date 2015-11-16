@@ -1,7 +1,7 @@
 #encoding: utf-8
 
 class Htmlascii
-  def self.convert(string)
+  def self.convert(string, remove_nonascii=false)
         ascii = {
             '&#32;' =>	' ',
             '&#33;' =>	'!',
@@ -318,6 +318,16 @@ class Htmlascii
      string =  string.gsub("#{k}", "#{v}")
         end
     end
-    return string
+    encoding_options = {
+    :invalid           => :replace,  # Replace invalid byte sequences
+    :undef             => :replace,  # Replace anything not defined in ASCII
+    :replace           => '',        # Use a blank for those replacements
+    :universal_newline => true       # Always break lines with \n
+    }
+    if remove_nonascii
+      return string.encode(Encoding.find('ASCII'), encoding_options)
+    else
+      return string
+    end
   end
 end
