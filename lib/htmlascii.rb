@@ -327,7 +327,7 @@ class Htmlascii
     :universal_newline => true       # Always break lines with \n
     }
     if remove_nonascii
-      return HTMLEntities.new(string).encode(Encoding.find('ASCII'), encoding_options)
+      return HTMLEntities.new.decode(string).encode(Encoding.find('ASCII'), encoding_options)
     else
       return string
     end
