@@ -1,4 +1,6 @@
 #encoding: utf-8
+require 'htmlentities'
+
 
 class Htmlascii
   def self.convert(string, remove_nonascii=false)
@@ -325,7 +327,7 @@ class Htmlascii
     :universal_newline => true       # Always break lines with \n
     }
     if remove_nonascii
-      return string.encode(Encoding.find('ASCII'), encoding_options)
+      return HTMLEntities.new(string).encode(Encoding.find('ASCII'), encoding_options)
     else
       return string
     end
